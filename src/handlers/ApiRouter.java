@@ -1,6 +1,7 @@
 package handlers;
 
-import api.UserHandler;
+import api.CategoryHandler;
+import api.ProductHandler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -12,8 +13,11 @@ public class ApiRouter implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         String fullPath = exchange.getRequestURI().getPath();
 
-        if (fullPath.startsWith("/api/users")) {
-            new UserHandler().handle(exchange);
+        if (fullPath.startsWith("/api/products")) {
+            new ProductHandler().handle(exchange);
+        }
+        if (fullPath.startsWith("/api/categories")) {
+            new CategoryHandler().handle(exchange);
         } else {
             sendError(exchange, 404, "API Endpoint not found");
         }

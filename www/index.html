@@ -1,9 +1,47 @@
+<!DOCTYPE html>
 <html lang="tr">
     <head>
-        <title>
-        </title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Yekerekerek Market</title>
+        <link rel="stylesheet" href="style/index.css" />
     </head>
     <body>
-        hello
+        <div class="app-container">
+            <aside class="pos-left">
+                <div class="header-brand">
+                    <div class="brand-wrapper">
+                        <div class="logo-box">Y</div>
+                        <h3>YEKEREKEREK MARKET</h3>
+                    </div>
+
+                    <a href="admin.html" class="admin-btn">Admin Giriş</a>
+                </div>
+                <div class="cart-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ürün</th>
+                                <th style="text-align: center">Adet</th>
+                                <th>Fiyat</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartItems"></tbody>
+                    </table>
+                </div>
+                <div class="checkout-bar">
+                    <div><span style="color: #bdc3c7">TOPLAM</span><br /><span class="total-amount" id="grandTotal">0.00 TL</span></div>
+                    <button style="background: #27ae60; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-weight: bold" onclick="completeSale()">ÖDEME AL</button>
+                </div>
+            </aside>
+
+            <main class="pos-right">
+                <div class="category-bar" id="category-container"></div>
+                <div class="product-grid" id="fastProducts"></div>
+            </main>
+        </div>
+
+        <script src="js/index.js"></script>
     </body>
 </html>

@@ -2,7 +2,6 @@ package handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -14,6 +13,9 @@ public class StaticFileHandler implements HttpHandler {
         String requestPath = exchange.getRequestURI().getPath();
         if (requestPath.equals("/")) {
             requestPath = "/index.html";
+        }
+        if (requestPath.equals("/admin")) {
+            requestPath = "/admin.html";
         }
 
         File file = new File("www" + requestPath);

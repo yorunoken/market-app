@@ -14,4 +14,3 @@ void main() throws IOException {
     IO.println("Server started at http://localhost:" + PORT);
     server.start();
 }
-

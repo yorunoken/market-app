@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Yekerekerekek Market Admin Paneli</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link rel="stylesheet" href="style/admin.css" />
+    </head>
+    <body>
+        <div id="login-page">
+            <div class="login-card">
+                <div
+                    style="
+                        background: var(--primary-green);
+                        width: 50px;
+                        height: 50px;
+                        margin: 0 auto 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        color: white;
+                        font-size: 24px;
+                    "
+                >
+                    Y
+                </div>
+                <h2>Admin Girişi</h2>
+                <form onsubmit="handleLogin(event)">
+                    <input type="text" placeholder="Kullanıcı Adı" required />
+                    <input type="password" id="password" placeholder="Şifre" required />
+                    <button type="submit" class="btn btn-green">GİRİŞ YAP</button>
+                </form>
+                <p id="login-error" style="color: var(--danger); margin-top: 10px; font-size: 0.9em; display: none">Şifre hatalı! (İpucu: admin)</p>
+            </div>
+        </div>
+
+        <div id="admin-panel" style="display: none">
+            <nav class="sidebar">
+                <h3>YEKEREKEREKEK<br /><span style="font-size: 0.6em; color: var(--primary-green)">MARKET OTOMASYONU</span></h3>
+
+                <div class="menu-item active" onclick="switchView('products', this)"><i class="fas fa-box"></i> Ürün Yönetimi</div>
+
+                <div class="menu-item" onclick="switchView('categories', this)"><i class="fas fa-tags"></i> Kategori Yönetimi</div>
+
+                <div class="logout-btn menu-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Çıkış</div>
+            </nav>
+
+            <main class="main-content">
+                <div id="view-products" class="view-section active">
+                    <div class="header-bar">
+                        <h1>Ürün Listesi</h1>
+                        <button class="btn btn-green" onclick="openProductModal('add')"><i class="fas fa-plus"></i> Yeni Ürün</button>
+                    </div>
+
+                    <div class="category-tabs" id="filter-container"></div>
+
+                    <div class="card">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 70px">Görsel</th>
+                                    <th>Ürün Adı</th>
+                                    <th>Kategori</th>
+                                    <th>Fiyat</th>
+                                    <th>Stok</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-list"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="view-categories" class="view-section">
+                    <div class="header-bar">
+                        <h1>Kategori Yönetimi</h1>
+                    </div>
+
+                    <div class="card">
+                        <div style="margin-bottom: 15px; color: #666">Yeni kategori ekle:</div>
+                        <form class="add-cat-wrapper" onsubmit="addCategory(event)">
+                            <input type="text" id="new-cat-name" placeholder="Örn: Manav" required />
+                            <button type="submit" class="btn btn-green">Ekle</button>
+                        </form>
+
+                        <h3>Mevcut Kategoriler</h3>
+                        <div style="margin-top: 15px">
+                            <table style="max-width: 600px">
+                                <thead>
+                                    <tr>
+                                        <th>Kategori Adı</th>
+                                        <th style="width: 100px">İşlem</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="category-list-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="product-modal">
+            <div class="modal-content">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px">
+                    <h3 id="modal-title">Ürün Ekle</h3>
+                    <span onclick="closeModal()" style="cursor: pointer; font-size: 1.5em">&times;</span>
+                </div>
+                <form onsubmit="saveProduct(event)">
+                    <input type="hidden" id="prod-id" />
+
+                    <div class="form-group">
+                        <label>Ürün Görseli</label>
+                        <input type="file" id="prod-img-input" accept="image/*" onchange="handleImagePreview(this)" />
+                        <div class="preview-box">
+                            <img id="modal-preview-img" src="" alt="" />
+                            <span id="preview-text" style="font-size: 0.8em; color: #999">Önizleme</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        <input type="text" id="prod-name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        <select id="prod-cat" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fiyat (TL)</label>
+                        <input type="number" id="prod-price" step="0.01" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Stok</label>
+                        <input type="number" id="prod-stock" required />
+                    </div>
+                    <button type="submit" class="btn btn-green" style="width: 100%">KAYDET</button>
+                </form>
+            </div>
+        </div>
+
+        <script src="js/admin.js"></script>
+    </body>
+</html>
